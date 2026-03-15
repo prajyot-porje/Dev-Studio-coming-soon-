@@ -7,6 +7,7 @@ type Theme = "dark" | "light";
 
 type CardItem = {
   title: string;
+  hint: string;
   visual: ReactNode;
   xFactor: number;
   yFactor: number;
@@ -28,51 +29,60 @@ const item = {
 
 const teaserCards: CardItem[] = [
   {
-    title: "Modern Web Interfaces",
+    title: "Private Alpha Concepts",
+    hint: "UI directions currently in exploration.",
     xFactor: 0.35,
     yFactor: 0.6,
     visual: (
-      <div className="space-y-2 rounded-xl border border-current/10 p-4 text-left text-[11px]">
-        <div className="h-3 w-24 rounded-full bg-current/20" />
-        <div className="grid grid-cols-3 gap-2">
-          <div className="h-10 rounded-md bg-current/10" />
-          <div className="h-10 rounded-md bg-current/15" />
-          <div className="h-10 rounded-md bg-current/10" />
+      <div className="relative rounded-xl border border-current/10 p-4">
+        <div className="grid grid-cols-6 gap-1.5 opacity-80 blur-[0.6px]">
+          {Array.from({ length: 18 }).map((_, index) => (
+            <span key={index} className="h-5 rounded-sm bg-current/20" />
+          ))}
         </div>
-        <div className="h-2 w-4/5 rounded-full bg-current/20" />
+        <div className="absolute inset-x-5 bottom-5 h-8 rounded-lg bg-current/20 blur-lg" />
       </div>
     )
   },
   {
-    title: "AI-Powered Features",
+    title: "Systems in Motion",
+    hint: "Interaction prototypes under active iteration.",
     xFactor: 0.6,
     yFactor: 0.35,
     visual: (
-      <pre className="overflow-hidden rounded-xl border border-current/10 bg-current/5 p-4 text-[10px] leading-relaxed">
-{`const studio = new DevStudio();
-studio.ship({
-  velocity: "high",
-  quality: "premium",
-  ai: true
-});`}
-      </pre>
+      <div className="space-y-3 rounded-xl border border-current/10 p-4">
+        <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.25em] text-current/50">
+          <span>Build Signal</span>
+          <span>Live</span>
+        </div>
+        <div className="space-y-2 blur-[0.8px]">
+          <div className="h-2 w-full rounded-full bg-current/20" />
+          <div className="h-2 w-5/6 rounded-full bg-current/25" />
+          <div className="h-2 w-2/3 rounded-full bg-current/30" />
+        </div>
+        <div className="h-px w-full bg-current/15" />
+        <div className="h-9 rounded-md bg-current/15 blur-[0.8px]" />
+      </div>
     )
   },
   {
-    title: "Built for Performance",
+    title: "Performance Blueprint",
+    hint: "Launch architecture is being refined.",
     xFactor: -0.35,
     yFactor: 0.6,
     visual: (
       <div className="space-y-3 rounded-xl border border-current/10 p-4">
-        <div className="flex items-end gap-1">
-          <div className="h-6 w-3 rounded bg-current/20" />
-          <div className="h-8 w-3 rounded bg-current/30" />
-          <div className="h-10 w-3 rounded bg-current/45" />
-          <div className="h-12 w-3 rounded bg-current/60" />
-          <div className="h-14 w-3 rounded bg-current/80" />
+        <div className="flex gap-1.5">
+          {[35, 50, 65, 80, 92].map((height) => (
+            <div key={height} className="w-4 rounded bg-current/30 blur-[0.4px]" style={{ height: `${height}px` }} />
+          ))}
         </div>
         <div className="h-px w-full bg-current/20" />
-        <div className="h-2 w-2/3 rounded-full bg-current/20" />
+        <div className="grid grid-cols-4 gap-1.5 opacity-80 blur-[0.8px]">
+          {Array.from({ length: 8 }).map((_, index) => (
+            <span key={index} className="h-4 rounded-sm bg-current/15" />
+          ))}
+        </div>
       </div>
     )
   }
@@ -110,11 +120,12 @@ function TeaserCard({
         whileInView={{ opacity: 1, filter: "blur(0px)" }}
         viewport={{ once: true }}
         transition={{ duration: 0.7, delay: 0.1 * index }}
-        className="min-h-32"
+        className="min-h-36"
       >
         {card.visual}
       </motion.div>
-      <p className={`mt-4 text-sm font-medium ${isDark ? "text-white/85" : "text-black/80"}`}>{card.title}</p>
+      <p className={`mt-4 text-sm font-semibold ${isDark ? "text-white/90" : "text-black/85"}`}>{card.title}</p>
+      <p className={`mt-1 text-xs ${isDark ? "text-white/55" : "text-black/55"}`}>{card.hint}</p>
     </motion.article>
   );
 }
